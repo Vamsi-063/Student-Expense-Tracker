@@ -22,7 +22,20 @@ from database import initialize_database, get_db_connection
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(
+    app,
+    resources={
+        r"/api/*": {
+            "origins": [
+                "https://student-xpense-tracker.netlify.app"
+            ]
+        }
+    },
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
+    supports_credentials=False
+)
 
 JWT_SECRET = os.getenv("JWT_SECRET_KEY")
 
